@@ -1,615 +1,220 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
 }
 
 #app {
-    width: 100%;
-    max-width: 1400px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-/* ========== LOGIN PAGE ========== */
-.login-container {
-    background: white;
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: auto;
+.login-box,
+.panel {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  padding: 28px;
+  width: min(100%, 480px);
 }
 
-.login-title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 28px;
-    font-weight: 600;
+h1, h2, h3 {
+  margin-top: 0;
 }
 
-.form-group {
-    margin-bottom: 20px;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 500;
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.3s;
+input, select, button {
+  font: inherit;
 }
 
-.form-group input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
 }
 
-.error-message {
-    background: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    border: 1px solid #f5c6cb;
+.password-wrap {
+  position: relative;
 }
 
-.success-message {
-    background: #d4edda;
-    color: #155724;
-    padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    border: 1px solid #c3e6cb;
+.password-wrap input {
+  padding-right: 42px;
 }
 
-/* ========== BUTTONS ========== */
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s;
-    text-align: center;
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
 }
 
-.btn-login {
-    width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 12px;
-    font-size: 16px;
-    margin-top: 10px;
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 600;
 }
 
-.btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+.login-button,
+.primary-btn {
+  background: #2563eb;
+  color: white;
 }
 
-.btn-logout {
-    background: #dc3545;
-    color: white;
+.secondary-btn,
+.logout-btn {
+  background: #ef4444;
+  color: white;
 }
 
-.btn-logout:hover {
-    background: #c82333;
+.message {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
-.btn-present {
-    background: #28a745;
-    color: white;
-    flex: 1;
+.error {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
-.btn-present:hover {
-    background: #218838;
+.success {
+  background: #dcfce7;
+  color: #166534;
 }
 
-.btn-absent {
-    background: #dc3545;
-    color: white;
-    flex: 1;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.btn-absent:hover {
-    background: #c82333;
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
-.btn-excused {
-    background: #ffc107;
-    color: #333;
-    flex: 1;
+.tab {
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  background: white;
 }
 
-.btn-excused:hover {
-    background: #e0a800;
+.tab.active {
+  background: #dbeafe;
+  border-color: #93c5fd;
 }
 
-.btn.active {
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
-}
-
-.btn-export {
-    background: #17a2b8;
-    color: white;
-    margin-right: 10px;
-}
-
-.btn-export:hover {
-    background: #138496;
-}
-
-/* ========== ADMIN PANEL ========== */
-.admin-panel {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.admin-header,
-.starosta-header,
-.manager-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.admin-header h1,
-.starosta-header h1,
-.manager-header h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.starosta-header p {
-    font-size: 14px;
-    opacity: 0.9;
-}
-
-.manager-controls {
-    display: flex;
-    gap: 10px;
-}
-
-.admin-container,
-.starosta-container,
-.manager-container {
-    padding: 30px;
-}
-
-/* Admin Tabs */
-.admin-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #eee;
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    color: #666;
-    font-weight: 500;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s;
-}
-
-.tab-btn:hover {
-    color: #667eea;
-}
-
-.tab-btn.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* Groups List */
-.groups-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .group-card {
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  background: #fafafa;
 }
 
-.group-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+.group-card ul {
+  margin: 10px 0 0 18px;
+  padding: 0;
 }
 
-.group-card h3 {
-    color: #667eea;
-    margin-bottom: 15px;
-    font-size: 18px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
 }
 
-.group-card p {
-    margin-bottom: 10px;
-    color: #555;
+th, td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: top;
 }
 
-.students-list {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #ddd;
+th {
+  background: #f3f4f6;
 }
 
-.students-list ul {
-    list-style: none;
-    margin-top: 10px;
-    padding-left: 20px;
+.status-pill {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.students-list li {
-    margin-bottom: 5px;
-    color: #666;
-    font-size: 14px;
+.status-present { background: #dcfce7; color: #166534; }
+.status-absent { background: #fee2e2; color: #991b1b; }
+.status-excused { background: #fef3c7; color: #92400e; }
+
+.student-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 8px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.starosts-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
+.student-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.starosts-table th {
-    background: #f8f9fa;
-    padding: 12px;
-    text-align: left;
-    font-weight: 600;
-    color: #555;
-    border-bottom: 2px solid #ddd;
+.student-actions button {
+  padding: 8px 10px;
+  font-size: 12px;
 }
 
-.starosts-table td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-    color: #666;
-}
+.student-actions .present { background: #bbf7d0; }
+.student-actions .absent { background: #fecaca; }
+.student-actions .excused { background: #fef3c7; }
 
-.starosts-table code {
-    background: #f5f5f5;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-}
+@media (max-width: 640px) {
+  .student-row {
+    grid-template-columns: 1fr;
+  }
 
-/* ========== STAROSTA INTERFACE ========== */
-.date-selector {
-    margin-bottom: 30px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.date-selector label {
-    font-weight: 600;
-    color: #333;
-}
-
-.date-selector input {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-.students-attendance-list {
-    display: flex;
+  .header {
     flex-direction: column;
-    gap: 15px;
-}
-
-.student-attendance-item {
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.student-info strong {
-    font-size: 16px;
-    color: #333;
-}
-
-.attendance-buttons {
-    display: flex;
+    align-items: flex-start;
     gap: 10px;
-    flex-wrap: wrap;
-}
-
-.attendance-buttons .btn {
-    padding: 8px 12px;
-    font-size: 12px;
-    min-width: 110px;
-}
-
-/* ========== MANAGER PANEL ========== */
-.filters {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.filters label {
-    font-weight: 600;
-    color: #333;
-}
-
-.filters select {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-.attendance-table-container {
-    overflow-x: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.attendance-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-}
-
-.attendance-table th {
-    background: #f8f9fa;
-    padding: 12px 8px;
-    text-align: center;
-    font-weight: 600;
-    color: #555;
-    border-bottom: 2px solid #ddd;
-    min-width: 60px;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    word-break: break-word;
-}
-
-.attendance-table td {
-    padding: 10px 8px;
-    border-bottom: 1px solid #eee;
-    text-align: center;
-}
-
-.group-cell {
-    text-align: left;
-    font-weight: 600;
-    color: #667eea;
-    position: sticky;
-    left: 0;
-    background: white;
-    min-width: 80px;
-    z-index: 1;
-}
-
-.student-cell {
-    text-align: left;
-    font-weight: 500;
-    color: #333;
-    position: sticky;
-    left: 80px;
-    background: white;
-    min-width: 200px;
-    z-index: 1;
-}
-
-.status-cell {
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.status-present {
-    color: #28a745;
-    background: #d4edda;
-}
-
-.status-absent {
-    color: #dc3545;
-    background: #f8d7da;
-}
-
-.status-excused {
-    color: #856404;
-    background: #fff3cd;
-}
-
-.absent-row {
-    background: #ffebee !important;
-}
-
-.absent-row .group-cell,
-.absent-row .student-cell {
-    background: #ffebee !important;
-}
-
-/* ========== RESPONSIVE DESIGN ========== */
-@media (max-width: 768px) {
-    .login-container {
-        padding: 25px;
-        max-width: 100%;
-    }
-
-    .admin-header,
-    .starosta-header,
-    .manager-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .admin-header h1,
-    .starosta-header h1,
-    .manager-header h1 {
-        font-size: 22px;
-    }
-
-    .manager-controls {
-        width: 100%;
-        justify-content: flex-end;
-    }
-
-    .groups-list {
-        grid-template-columns: 1fr;
-    }
-
-    .student-attendance-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .attendance-buttons {
-        width: 100%;
-    }
-
-    .attendance-buttons .btn {
-        flex: 1;
-    }
-
-    .admin-tabs {
-        flex-wrap: wrap;
-    }
-
-    .tab-btn {
-        padding: 10px 15px;
-        font-size: 13px;
-    }
-
-    .attendance-table th {
-        padding: 8px 4px;
-        font-size: 11px;
-        min-width: 40px;
-    }
-
-    .attendance-table td {
-        padding: 8px 4px;
-        font-size: 12px;
-    }
-
-    .group-cell {
-        min-width: 60px;
-        font-size: 12px;
-        left: 0;
-    }
-
-    .student-cell {
-        min-width: 150px;
-        left: 60px;
-        font-size: 12px;
-    }
-
-    .filters {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .filters select {
-        width: 100%;
-    }
-
-    .date-selector {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .date-selector input {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 5px;
-    }
-
-    .login-container {
-        padding: 20px;
-        border-radius: 8px;
-    }
-
-    .admin-container,
-    .starosta-container,
-    .manager-container {
-        padding: 15px;
-    }
-
-    .admin-header,
-    .starosta-header,
-    .manager-header {
-        padding: 20px 15px;
-    }
-
-    .attendance-buttons .btn {
-        padding: 6px 8px;
-        font-size: 11px;
-        min-width: 80px;
-    }
-
-    .btn {
-        padding: 8px 12px;
-    }
-
-    .starosts-table th,
-    .starosts-table td {
-        padding: 8px;
-        font-size: 12px;
-    }
-
-    .group-card {
-        padding: 15px;
-    }
-
-    .group-card h3 {
-        font-size: 16px;
-    }
+  }
 }
