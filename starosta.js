@@ -3,6 +3,7 @@ const Starosta = {
     // Отрисовка интерфейса старосты
     render(user) {
         const group = CONFIG.groups.find(g => g.id === user.groupId);
+        const today = new Date().toISOString().slice(0, 10);
         
         return `
             <div class="starosta-panel">
@@ -17,7 +18,8 @@ const Starosta = {
                 <div class="starosta-container">
                     <div class="date-selector">
                         <label>Дата:</label>
-                        <input type="date" id="attendance-date" value="${new Date().toISOString().slice(0, 10)}" 
+                        <input type="date" id="attendance-date" value="${today}" 
+                               max="${today}"
                                onchange="Starosta.updateDisplay()">
                     </div>
                     
