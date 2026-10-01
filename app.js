@@ -40,19 +40,22 @@ const App = {
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль:</label>
-                        <input type="password" id="password" name="password" required>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" name="password" required>
+                            <button type="button" class="btn-toggle-password" onclick="App.togglePassword()">👁️</button>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-login">Вход</button>
                 </form>
-                
-                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999;">
-                    <p><strong>Тестовые учетные данные:</strong></p>
-                    <p>👨‍💼 Администратор: <code>admin / 9671830Qw</code></p>
-                    <p>👨‍💼 Менеджер: <code>manager / manager12</code></p>
-                    <p>👤 Старosta: <code>efimov / password123</code></p>
-                </div>
             </div>
         `;
+    },
+    
+    // Переключение видимости пароля
+    togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
     },
     
     // Обработка входа
