@@ -23,6 +23,13 @@ const API = {
     }).then(r => r.json());
   },
 
+  async getUsers() {
+    const token = sessionStorage.getItem('token');
+    return fetch('/api/users', {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(r => r.json());
+  },
+
   async getAttendance(groupId) {
     const token = sessionStorage.getItem('token');
     const url = groupId ? `/api/attendance?groupId=${groupId}` : '/api/attendance';
@@ -73,7 +80,7 @@ const App = {
     const app = document.getElementById('app');
     app.innerHTML = `
       <div class="login-box">
-        <h1>Система учета посещаемости</h1>
+        <h1>🎓 Система учета посещаемости</h1>
         <div id="message"></div>
         <form id="login-form">
           <div>
@@ -123,6 +130,9 @@ const App = {
 
     if (user.role === 'admin') {
       const groups = await API.getGroups();
+      const users = await API.getUsers();
+      const starosts = users.filter(u => u.role === 'starosta');
+
       app.innerHTML = `
         <div class="panel">
           <div class="header">
@@ -132,19 +142,55 @@ const App = {
             </div>
             <button class="logout-btn" id="logout">Выход</button>
           </div>
-          <div class="card-grid">
-            ${groups.map(group => `
-              <div class="group-card">
-                <h3>${group.name}</h3>
-                <p><strong>Староста:</strong> ${group.starosta ? group.starosta.name : 'не назначен'}</p>
-                <ul>
-                  ${(group.students || []).map(student => `<li>${student.name}</li>`).join('')}
-                </ul>
-              </div>
-            `).join('')}
+
+          <div class="tabs">
+            <button class="tab active" onclick="App.showTab('groups')">Группы и студенты</button>
+            <button class="tab" onclick="App.showTab('starosts')">Старосты</button>
+          </div>
+
+          <div id="groups-tab" class="tab-content">
+            <div class="card-grid">
+              ${groups.map(group => `
+                <div class="group-card">
+                  <h3>${group.name}</h3>
+                  <p><strong>Староста:</strong> ${group.starosta ? group.starosta.name : 'не назначен'}</p>
+                  <ul>
+                    ${(group.students || []).map(student => `<li>${student.name}</li>`).join('')}
+                  </ul>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div id="starosts-tab" class="tab-content" style="display: none;">
+            <h2>Список старост</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ФИО</th>
+                  <th>Логин</th>
+                  <th>Группа</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${starosts.map(starosta => {
+                  const group = groups.find(g => g.id === starosta.groupId);
+                  return `
+                    <tr>
+                      <td>${starosta.name}</td>
+                      <td><code>${starosta.login}</code></td>
+                      <td>${group ? group.name : 'N/A'}</td>
+                      <td><span class="status-pill status-present">Активен</span></td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
           </div>
         </div>
       `;
+
       document.getElementById('logout').addEventListener('click', () => this.logout());
       return;
     }
@@ -241,6 +287,17 @@ const App = {
 
       document.getElementById('logout').addEventListener('click', () => this.logout());
     }
+  },
+
+  showTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+    document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+    const activeTab = document.getElementById(tabName + '-tab');
+    if (activeTab) {
+      activeTab.style.display = 'block';
+    }
+    const clickedBtn = [...document.querySelectorAll('.tab')].find(btn => btn.textContent.includes(tabName === 'groups' ? 'Группы' : 'Старосты'));
+    if (clickedBtn) clickedBtn.classList.add('active');
   },
 
   symbol(status) {
